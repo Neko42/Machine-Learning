@@ -38,6 +38,12 @@ func correlation(xValues: [Double], yValues: [Double]) -> Double
     return (1 / n) * Σ
 }
 
+func sumOfSquareErrors(xValues: [Double], yValues: [Double], slope: Double, offset: Double) -> Double
+{
+    precondition(xValues.count == yValues.count)
+    return zip(xValues, yValues).map { (x: Double, y: Double) in pow((y - slope * x - offset), 2) }.reduce(0, +)
+}
+
 let test1: [Double] = [15, 40, 10, 18, 31]
 let test2: [Double] = [90, 90, 90, 90, 90]
 let test3: [Double] = [1, 4, 3, 5, 1]
@@ -66,4 +72,9 @@ func printLinearRegression(xValues: [Double], yValues: [Double])
 }
 
 printLinearRegression(xValues: xValues, yValues: yValues)
+
+let sseExampleX: [Double] = [1, 3, 2]
+let sseExampleY: [Double] = [0, 4, 3]
+
+print("sum of square errors is : ", sumOfSquareErrors(xValues: sseExampleX, yValues: sseExampleY, slope: 3, offset: 2))
 
